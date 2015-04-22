@@ -1,6 +1,8 @@
-package com.padsterprogramming.watches;
+package com.padsterprogramming.watches.faces;
 
+import com.padsterprogramming.watches.Palette;
 import com.padsterprogramming.watches.Palette.ModePalette;
+import com.padsterprogramming.watches.SimpleWatchface;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -8,9 +10,7 @@ import android.graphics.Rect;
 import android.text.format.Time;
 
 /** Demo watchface which looks like the SBB (Swiss rail) Mondaine design. */
-public class MondaineFace implements SimpleWatchface {
-  private static final float TWOPI = 2 * (float) Math.PI;
-
+public class MondaineFace extends BaseSimpleWatchface {
   private Palette palette;
 
   @Override public void createSingletons() {
@@ -18,16 +18,16 @@ public class MondaineFace implements SimpleWatchface {
   }
 
   @Override
-  public void drawActive(Canvas canvas, Rect bounds) {
-    drawMode(canvas, bounds, palette.getActivePalette());
+  public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
+    drawMode(currentTime, canvas, bounds, palette.getActivePalette());
   }
 
   @Override
-  public void drawPassive(Canvas canvas, Rect bounds) {
-    drawMode(canvas, bounds, palette.getPassivePalette());
+  public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
+    drawMode(currentTime, canvas, bounds, palette.getPassivePalette());
   }
 
-  public void drawMode(Canvas canvas, Rect bounds, ModePalette paints) {
+  public void drawMode(Time currentTime, Canvas canvas, Rect bounds, ModePalette paints) {
     canvas.drawRect(bounds, paints.background);
 
     int width = bounds.width();
@@ -45,12 +45,10 @@ public class MondaineFace implements SimpleWatchface {
       radialLine(canvas, cX, cY, lenFrom, 0.93f * rad, radians, paint, false);
     }
 
-    Time time = new Time(); time.setToNow();
-
     // Hour hand is normal, minute and second hands lock to last minute/second.
-    float hrAng  = TWOPI * ((time.hour % 12) * 60f + time.minute) / (12f * 60f);
-    float minAng = TWOPI * time.minute / 60f;
-    float secAng = TWOPI * time.second / 60f;
+    float hrAng  = TWOPI * ((currentTime.hour % 12) * 60f + currentTime.minute) / (12f * 60f);
+    float minAng = TWOPI * currentTime.minute / 60f;
+    float secAng = TWOPI * currentTime.second / 60f;
     radialLine(canvas, cX, cY, -0.15f * rad, 0.60f * rad, hrAng , paints.handHr,  false);
     radialLine(canvas, cX, cY, -0.15f * rad, 0.80f * rad, minAng, paints.handMin, false);
     radialLine(canvas, cX, cY, -0.18f * rad, 0.60f * rad, secAng, paints.handSec,  true);

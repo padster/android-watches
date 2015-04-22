@@ -4,9 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
-import android.util.Log;
+import android.text.format.Time;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
+
+import com.padsterprogramming.watches.faces.MondaineFace;
 
 /** Service that renders a simple watchface, managing the life cycle. */
 public class SimpleWatchfaceService extends CanvasWatchFaceService {
@@ -60,10 +62,13 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
     @Override
     public void onDraw(Canvas canvas, Rect bounds) {
       super.onDraw(canvas, bounds);
+
+      Time currentTime = new Time();
+      currentTime.setToNow();
       if (!isInAmbientMode()) {
-        face.drawActive(canvas, bounds);
+        face.drawActive(currentTime, canvas, bounds);
       } else {
-        face.drawPassive(canvas, bounds);
+        face.drawPassive(currentTime, canvas, bounds);
       }
 
       if (isVisible() && !isInAmbientMode()) {

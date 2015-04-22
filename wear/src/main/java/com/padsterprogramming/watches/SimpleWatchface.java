@@ -2,6 +2,7 @@ package com.padsterprogramming.watches;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.text.format.Time;
 
 /**
  * Remaining:
@@ -16,8 +17,8 @@ public interface SimpleWatchface {
   void createSingletons();
 
   /** Draw the watchface when the watch is active. */
-  void drawActive(Canvas canvas, Rect bounds);
+  void drawActive(Time currentTime, Canvas canvas, Rect bounds);
 
   /** Draw the watchface when the watch is passive. */
-  void drawPassive(Canvas canvas, Rect bounds);
+  void drawPassive(Time currentTime, Canvas canvas, Rect bounds);
 }
