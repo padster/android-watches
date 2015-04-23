@@ -14,10 +14,12 @@ These are the shortcuts I made when writing my own, aimed at people trying to ju
 ### How
 
 1. Check out the code into Android studio, make sure it builds
-1. Connect your watch and phone via USB. 
+1. Put your watch on its charging dock, and connect that via USB.
 1. Turn on USB debugging (note: don't use bluetooth debugging unless you really have to...).
-1. Deploy the 'wear' app to your phone
-1. Select the custom watch face (icon should look like a face)
+1. Deploy the 'wear' app to your watch.
 1. Enjoy!
-1. Try writing your own SimpleWatchface
+1. Try writing your own SimpleWatchface.
+
+Ask me any questions about the API or help with debugging,
+the upcoming plans are all at SimpleWatchface.java
 
