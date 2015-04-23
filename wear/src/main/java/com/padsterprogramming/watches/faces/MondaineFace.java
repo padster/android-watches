@@ -1,8 +1,7 @@
 package com.padsterprogramming.watches.faces;
 
-import com.padsterprogramming.watches.Palette;
-import com.padsterprogramming.watches.Palette.ModePalette;
-import com.padsterprogramming.watches.SimpleWatchface;
+import com.padsterprogramming.watches.WatchMetrics;
+import com.padsterprogramming.watches.faces.MondainePalette.ModePalette;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,29 +10,29 @@ import android.text.format.Time;
 
 /** Demo watchface which looks like the SBB (Swiss rail) Mondaine design. */
 public class MondaineFace extends BaseSimpleWatchface {
-  private Palette palette;
+  private MondainePalette palette;
 
-  @Override public void createSingletons() {
-    palette = new Palette();
+  public MondaineFace(WatchMetrics metrics) {
+    super(metrics);
   }
 
-  @Override
-  public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
+  @Override public void createSingletons() {
+    palette = new MondainePalette();
+  }
+
+  @Override public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
     drawMode(currentTime, canvas, bounds, palette.getActivePalette());
   }
 
-  @Override
-  public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
+  @Override public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
     drawMode(currentTime, canvas, bounds, palette.getPassivePalette());
   }
 
   public void drawMode(Time currentTime, Canvas canvas, Rect bounds, ModePalette paints) {
     canvas.drawRect(bounds, paints.background);
 
-    int width = bounds.width();
-    int height = bounds.height();
-    float cX = width / 2f;
-    float cY = height / 2f;
+    float cX = bounds.exactCenterX();
+    float cY = bounds.exactCenterY();
     float rad = Math.min(cX, cY);
     canvas.drawCircle(cX, cY, rad, paints.foreground);
 

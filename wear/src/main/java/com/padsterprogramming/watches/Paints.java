@@ -9,6 +9,7 @@ public final class Paints {
 
   private Paints() {}
 
+  /** Build a paint from r/g/b colours. */
   public static Paint fromRgb(int r, int g, int b) {
     Paint paint = new Paint();
     paint.setARGB(255, r, g, b);
@@ -16,16 +17,19 @@ public final class Paints {
     return paint;
   }
 
+  /** Build a paint of a particular shade of grey. */
   public static Paint fromGrey(int grey) {
     return fromRgb(grey, grey, grey);
   }
 
+  /** Build a paint from r/g/b and line width. */
   public static Paint fromRgbAndWidth(int r, int g, int b, float w) {
     Paint paint = fromRgb(r, g, b);
     paint.setStrokeWidth(w);
     return paint;
   }
 
+  /** Build a greyscale paint with a given line width. */
   public static Paint fromGreyAndWidth(int grey, float w) {
     return fromRgbAndWidth(grey, grey, grey, w);
   }

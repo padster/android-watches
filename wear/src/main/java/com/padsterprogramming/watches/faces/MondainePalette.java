@@ -1,13 +1,15 @@
-package com.padsterprogramming.watches;
+package com.padsterprogramming.watches.faces;
 
 import android.graphics.Paint;
+
+import com.padsterprogramming.watches.Paints;
 
 import static com.padsterprogramming.watches.Paints.fromGrey;
 import static com.padsterprogramming.watches.Paints.fromGreyAndWidth;
 import static com.padsterprogramming.watches.Paints.fromRgbAndWidth;
 
 /** Singleton palette for faces, lazily created. */
-public class Palette {
+public class MondainePalette {
   // Lazy-created palettes for each mode.
   private ModePalette activePaints;
   private ModePalette passivePaints;
