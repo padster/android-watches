@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Watches.iml" filepath="$PROJECT_DIR$/Watches.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-watches.iml" filepath="$PROJECT_DIR$/android-watches.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/wear/wear.iml" filepath="$PROJECT_DIR$/wear/wear.iml" />
     </modules>
   </component>
 </project>
-
