@@ -11,6 +11,8 @@ import android.text.format.Time;
  * 2) Add simpler performant resource loading.
  * 3) Documentation for deployment/debugging.
  * 4) Settings activity API.
+ *
+ * TODO: Reformat to 2 space with 4 indentation :)
  */
 public interface SimpleWatchface {
   /** Called once at the start, before any other method. */

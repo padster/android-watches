@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
 
+import com.padsterprogramming.watches.faces.FibonacciFace;
 import com.padsterprogramming.watches.faces.MondaineFace;
 import com.padsterprogramming.watches.faces.WordClockFace;
 
@@ -21,7 +22,7 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
   @Override public Engine onCreateEngine() {
     // Put whatever face you want here...
     WatchMetrics metrics = new WatchMetrics();
-    return new Engine(new MondaineFace(metrics), metrics);
+    return new Engine(new FibonacciFace(metrics), metrics);
   }
 
   // Wraps a simple watchface as an engine.

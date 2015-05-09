@@ -31,8 +31,8 @@ public class WordClockPalette {
 
   // Palette struct for drawing a particular mode.
   public static class ModePalette {
-    public Paint onColour;
-    public Paint offColour;
+    public final Paint onColour;
+    public final Paint offColour;
 
     public ModePalette(Paint onColour, Paint offColour) {
       this.onColour = onColour;
