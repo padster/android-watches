@@ -62,8 +62,12 @@ public class FibonacciFace extends BaseSimpleWatchface {
         float topLeftX = realBounds.exactCenterX() - unitSz * 4f;
         float topLeftY = realBounds.exactCenterY() - unitSz * 2.5f;
 
-        int hour = currentTime.hour;
+        int hour = currentTime.hour % 12;
         int mins = currentTime.minute / 5;
+        // Have midnight as 0, but noon as 12, it feels cleaner that way for some reason...
+        if (currentTime.hour == 12) {
+            hour = 12;
+        }
 
         // Draw the entire grid.
         Paint strokeColour = paints.stroke;
