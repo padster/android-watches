@@ -28,7 +28,7 @@ public class WordClockLetters {
    * Done per row, by checking whether the position is within certain needed words.
    */
   static boolean isActive(int hour, int mins, int row, int column) {
-    boolean isTo =  (35 <= mins && mins <= 55);
+    boolean isTo = (35 <= mins && mins <= 55);
     boolean isPast = (5 <= mins && mins <= 30);
     int visMins = Math.min(mins, 60 - mins);
     int visHour = hour + (isTo ? 1 : 0);
@@ -49,7 +49,7 @@ public class WordClockLetters {
         if ((visMins == 20 || visMins == 25) && 0 <= column && column <= 5) {
           return true;
         }
-        if ((visMins ==  5 || visMins == 25) && 6 <= column && column <= 9) {
+        if ((visMins == 5 || visMins == 25) && 6 <= column && column <= 9) {
           return true;
         }
         break;

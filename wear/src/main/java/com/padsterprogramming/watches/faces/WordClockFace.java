@@ -15,7 +15,7 @@ import android.text.format.Time;
 /**
  * Clockface with the time as illuminated letters, rather than numbers/hands.
  * See e.g. http://www.timeanddate.com/wordclock/
- *
+ * <p/>
  * IDEA: Different colours?
  * IDEA: Avoid burnin with letters changing in row #1?
  */
@@ -61,7 +61,7 @@ public class WordClockFace extends BasePaletteWatchface<WorldClockPalette> {
           continue;
         }
 
-        int yAt = (int) (realBounds.top  + i * yDelta + paint.getTextSize());
+        int yAt = (int) (realBounds.top + i * yDelta + paint.getTextSize());
         int xAt = (int) (realBounds.left + j * xDelta);
         canvas.drawText(WordClockLetters.charAt(i, j), xAt, yAt, paint);
       }

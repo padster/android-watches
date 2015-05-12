@@ -6,13 +6,12 @@ import android.text.format.Time;
 
 /**
  * Remaining:
- *
+ * <p/>
  * 1) Have more implementations (Big Ben, Harrison's H4, ...)
  * 2) Add simpler performant resource loading.
  * 3) Documentation for deployment/debugging.
  * 4) Settings activity API.
- *
- * TODO: Reformat to 2 space with 4 indentation :)
+ * <p/>
  */
 public interface SimpleWatchface {
   /** Called once at the start, before any other method. */

@@ -25,7 +25,7 @@ public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
   private int lastMillis = -1;
 
   public MondaineFace(Context context, WatchMetrics metrics) {
-      super(context, metrics, new MondainePalettes());
+    super(context, metrics, new MondainePalettes());
   }
 
   @Override public int activeDrawPeriodMs() {
@@ -71,19 +71,19 @@ public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
       smearedSecond = tickNumber * 1f / TICKS_PER_SEC;
 
       if (tickNumber == 0) {
-          minute--; // Only progress the minute hand on tick #1, not tick #0.
+        minute--; // Only progress the minute hand on tick #1, not tick #0.
       } else if (tickNumber >= TICKS_PER_SEC * 60) {
-          smearedSecond = 0f; // For the extra ticks, snap the second hand to the top.
+        smearedSecond = 0f; // For the extra ticks, snap the second hand to the top.
       }
     }
 
     // Hour hand is normal, minute and second hands lock to last minute/second.
-    float hrAng  = TWOPI * ((currentTime.hour % 12) * 60f + minute) / (12f * 60f);
+    float hrAng = TWOPI * ((currentTime.hour % 12) * 60f + minute) / (12f * 60f);
     float minAng = TWOPI * minute / 60f;
     float secAng = TWOPI * smearedSecond / 60f;
-    radialLine(canvas, cX, cY, -0.15f * rad, 0.60f * rad, hrAng , paints.handHr,  false);
+    radialLine(canvas, cX, cY, -0.15f * rad, 0.60f * rad, hrAng, paints.handHr, false);
     radialLine(canvas, cX, cY, -0.15f * rad, 0.80f * rad, minAng, paints.handMin, false);
-    radialLine(canvas, cX, cY, -0.18f * rad, 0.60f * rad, secAng, paints.handSec,  true);
+    radialLine(canvas, cX, cY, -0.18f * rad, 0.60f * rad, secAng, paints.handSec, true);
 
     // Bonus: if there's a second hand, draw the central joining dot.
     if (paints.handSec != null) {
@@ -92,11 +92,12 @@ public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
   }
 
   /** From a center (cx, cy), draw a line at angle (ang), from lenFr -> lenTo distance. */
-  private void radialLine(Canvas canvas, float cx, float cy,
+  private void radialLine(
+      Canvas canvas, float cx, float cy,
       float lenFr, float lenTo, float ang, Paint paint, boolean withDot) {
     if (paint == null) { return; } // Special case, null = ignore the line.
 
-    float dX =  (float) Math.sin(ang);
+    float dX = (float) Math.sin(ang);
     float dY = -(float) Math.cos(ang);
     float frX = cx + lenFr * dX;
     float frY = cy + lenFr * dY;
