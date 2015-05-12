@@ -1,12 +1,9 @@
 package com.padsterprogramming.watches.faces;
 
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import com.padsterprogramming.watches.Paints;
 
-/**
- * Colours for the Fibonacci face in both modes.
- */
+/** Colours for the Fibonacci face in both modes. */
 public class FibonacciPalette {
     // Lazy-created palettes for each mode.
     private ModePalette activePaints;

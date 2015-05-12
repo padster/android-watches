@@ -1,5 +1,6 @@
 package com.padsterprogramming.watches.faces;
 
+import android.content.Context;
 import com.padsterprogramming.watches.WatchMetrics;
 import com.padsterprogramming.watches.faces.MondainePalette.ModePalette;
 
@@ -23,8 +24,8 @@ public class MondaineFace extends BaseSimpleWatchface {
   private int lastSecond = -1;
   private int lastMillis = -1;
 
-  public MondaineFace(WatchMetrics metrics) {
-    super(metrics);
+  public MondaineFace(Context context, WatchMetrics metrics) {
+    super(context, metrics);
   }
 
   @Override public void createSingletons() {

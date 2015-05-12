@@ -1,5 +1,6 @@
 package com.padsterprogramming.watches.faces;
 
+import android.content.Context;
 import com.padsterprogramming.watches.Paints;
 import com.padsterprogramming.watches.WatchMetrics;
 import com.padsterprogramming.watches.faces.WordClockPalette.ModePalette;
@@ -22,8 +23,8 @@ public class WordClockFace extends BaseSimpleWatchface {
 
   private WordClockPalette palette;
 
-  public WordClockFace(WatchMetrics metrics) {
-    super(metrics);
+  public WordClockFace(Context context, WatchMetrics metrics) {
+    super(context, metrics);
   }
 
   @Override public void createSingletons() {
