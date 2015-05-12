@@ -5,9 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.format.Time;
+import com.padsterprogramming.watches.BasePaletteWatchface;
 import com.padsterprogramming.watches.Paints;
 import com.padsterprogramming.watches.WatchMetrics;
-import com.padsterprogramming.watches.faces.FibonacciPalette.ModePalette;
+import com.padsterprogramming.watches.faces.FibonacciPalettes.FibonacciPalette;
 
 /**
  * Watchface for the fibonacci clock:
@@ -15,31 +16,16 @@ import com.padsterprogramming.watches.faces.FibonacciPalette.ModePalette;
  *
  * TODO - this was written quickly :) Should be cleaned up afterwards...
  */
-public class FibonacciFace extends BaseSimpleWatchface {
-
-    private FibonacciPalette palette;
-
+public class FibonacciFace extends BasePaletteWatchface<FibonacciPalette> {
     public FibonacciFace(Context context, WatchMetrics metrics) {
-        super(context, metrics);
-    }
-
-    @Override public void createSingletons() {
-        palette = new FibonacciPalette();
+        super(context, metrics, new FibonacciPalettes());
     }
 
     @Override public int activeDrawPeriodMs() {
         return 5 * 60 * 1000; // Only updates every five minutes.
     }
 
-    @Override public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
-        drawMode(currentTime, canvas, bounds, palette.getActivePalette());
-    }
-
-    @Override public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
-        drawMode(currentTime, canvas, bounds, palette.getPassivePalette());
-    }
-
-    public void drawMode(Time currentTime, Canvas canvas, Rect bounds, ModePalette paints) {
+    public void drawMode(Time currentTime, Canvas canvas, Rect bounds, FibonacciPalette paints) {
         canvas.drawRect(bounds, Paints.BLACK);
         Rect realBounds = bounds;
 

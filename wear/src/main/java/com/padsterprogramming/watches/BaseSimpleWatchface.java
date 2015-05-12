@@ -1,4 +1,4 @@
-package com.padsterprogramming.watches.faces;
+package com.padsterprogramming.watches;
 
 import android.content.Context;
 import com.padsterprogramming.watches.SimpleWatchface;

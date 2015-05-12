@@ -6,41 +6,33 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.text.format.Time;
+import com.padsterprogramming.watches.BasePaletteWatchface;
 import com.padsterprogramming.watches.ImageLoader;
 import com.padsterprogramming.watches.WatchMetrics;
-import com.padsterprogramming.watches.faces.BigBenPalette.ModePalette;
+import com.padsterprogramming.watches.faces.BigBenPalettes.BigBenPalette;
 
 /** Watchface to emulate the clockface on the tower that holds Big Ben in London. */
-public class BigBenFace extends BaseSimpleWatchface {
+public class BigBenFace extends BasePaletteWatchface<BigBenPalette> {
     private static final double MINS_LENGTH = 0.90;
     private static final double HOUR_LENGTH = 0.45;
     private static final double MINS_CENTRE = 170.0 / 210.0; // Centre at pixel 170 of 210.
     private static final double HOUR_CENTRE =  85.0 / 118.0; // Centre at pixel  85 of 118.
 
-    private BigBenPalette palette;
     private ImageLoader imageLoader;
 
     public BigBenFace(Context context, WatchMetrics metrics) {
-        super(context, metrics);
+        super(context, metrics, new BigBenPalettes());
     }
 
     @Override public void createSingletons() {
         imageLoader = new ImageLoader(this.context);
-        palette = new BigBenPalette();
+
         // Preload images on service startup, not on first draw.
-        palette.getActivePalette().preload(imageLoader);
-        palette.getPassivePalette().preload(imageLoader);
+        ensureActivePalette().preload(imageLoader);
+        ensurePassivePalette().preload(imageLoader);
     }
 
-    @Override public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
-        drawMode(currentTime, canvas, bounds, palette.getActivePalette());
-    }
-
-    @Override public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
-        drawMode(currentTime, canvas, bounds, palette.getPassivePalette());
-    }
-
-    private void drawMode(Time currentTime, Canvas canvas, Rect bounds, ModePalette palette) {
+    protected void drawMode(Time currentTime, Canvas canvas, Rect bounds, BigBenPalette palette) {
         Bitmap face = imageLoader.getBitmap(palette.faceResource, bounds.width(), bounds.height());
         canvas.drawBitmap(face, 0, 0, null);
 

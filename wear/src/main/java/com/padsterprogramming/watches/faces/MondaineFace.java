@@ -1,8 +1,10 @@
 package com.padsterprogramming.watches.faces;
 
 import android.content.Context;
+import com.padsterprogramming.watches.BasePaletteWatchface;
+import com.padsterprogramming.watches.BaseSimpleWatchface;
 import com.padsterprogramming.watches.WatchMetrics;
-import com.padsterprogramming.watches.faces.MondainePalette.ModePalette;
+import com.padsterprogramming.watches.faces.MondainePalettes.MondainePalette;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -10,14 +12,12 @@ import android.graphics.Rect;
 import android.text.format.Time;
 
 /** Demo watchface which looks like the SBB (Swiss rail) Mondaine design. */
-public class MondaineFace extends BaseSimpleWatchface {
+public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
   // SBB clocks pause a bit at 60s, so each visual 'second' is actually a bit shorter.
   // Keeep a multiple of 4, to allow 4 ticks per second.
   private static final int MS_PER_SEC = 980;
   private static final int TICKS_PER_SEC = 4;
   private static final int MS_PER_TICK = MS_PER_SEC / TICKS_PER_SEC;
-
-  private MondainePalette palette;
 
   // HACK: See comments at usage.
   // TODO: Move into the service?
@@ -25,26 +25,14 @@ public class MondaineFace extends BaseSimpleWatchface {
   private int lastMillis = -1;
 
   public MondaineFace(Context context, WatchMetrics metrics) {
-    super(context, metrics);
-  }
-
-  @Override public void createSingletons() {
-    palette = new MondainePalette();
-  }
-
-  @Override public void drawActive(Time currentTime, Canvas canvas, Rect bounds) {
-    drawMode(currentTime, canvas, bounds, palette.getActivePalette());
-  }
-
-  @Override public void drawPassive(Time currentTime, Canvas canvas, Rect bounds) {
-    drawMode(currentTime, canvas, bounds, palette.getPassivePalette());
+      super(context, metrics, new MondainePalettes());
   }
 
   @Override public int activeDrawPeriodMs() {
     return MS_PER_TICK; // Redraw each tick (roughly).
   }
 
-  public void drawMode(Time currentTime, Canvas canvas, Rect bounds, ModePalette paints) {
+  public void drawMode(Time currentTime, Canvas canvas, Rect bounds, MondainePalette paints) {
     canvas.drawRect(bounds, paints.background);
 
     float cX = bounds.exactCenterX();
@@ -60,28 +48,33 @@ public class MondaineFace extends BaseSimpleWatchface {
       radialLine(canvas, cX, cY, lenFrom, 0.93f * rad, radians, paint, false);
     }
 
-    // HACK: Time doesn't include millis :(
-    // We measure millis here, but it's possible the millis have wrapped around 0
-    // while currentTime.second is still on the previous second,
-    // which causes the time to jump backwards. Fix by incrementing the second manually.
-    int second = currentTime.second;
-    int millis = (int)(System.currentTimeMillis() % 1000);
-    if (second == lastSecond && millis < lastMillis) {
-      // Backwards jump! Force it forwards again.
-      second++;
-    }
-    lastMillis = millis;
-    lastSecond = second;
-
-    // Smearing: Find which # tick it is in the minute.
-    int tickNumber = (1000 * second + millis) / MS_PER_TICK;
-    float smearedSecond = tickNumber * 1f / TICKS_PER_SEC;
-
     int minute = currentTime.minute;
-    if (tickNumber == 0) {
-      minute--; // Only progress the minute hand on tick #1, not tick #0.
-    } else if (tickNumber >= TICKS_PER_SEC * 60) {
-      smearedSecond = 0f; // For the extra ticks, snap the second hand to the top.
+    int second = currentTime.second;
+    float smearedSecond = second;
+
+    // Active mode, so smear the seconds to emulate the SBB tick.
+    if (paints.handSec != null) {
+      // HACK: Time doesn't include millis :(
+      // We measure millis here, but it's possible the millis have wrapped around 0
+      // while currentTime.second is still on the previous second,
+      // which causes the time to jump backwards. Fix by incrementing the second manually.
+      int millis = (int) (System.currentTimeMillis() % 1000);
+      if (second == lastSecond && millis < lastMillis) {
+        // Backwards jump! Force it forwards again.
+        second++;
+      }
+      lastMillis = millis;
+      lastSecond = second;
+
+      // Smearing: Find which # tick it is in the minute.
+      int tickNumber = (1000 * second + millis) / MS_PER_TICK;
+      smearedSecond = tickNumber * 1f / TICKS_PER_SEC;
+
+      if (tickNumber == 0) {
+          minute--; // Only progress the minute hand on tick #1, not tick #0.
+      } else if (tickNumber >= TICKS_PER_SEC * 60) {
+          smearedSecond = 0f; // For the extra ticks, snap the second hand to the top.
+      }
     }
 
     // Hour hand is normal, minute and second hands lock to last minute/second.

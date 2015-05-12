@@ -23,6 +23,8 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
   @Override public Engine onCreateEngine() {
     // Put whatever face you want here...
     WatchMetrics metrics = new WatchMetrics();
+
+    // TODO - replace constructor args with custom context that includes metrics and android context.
     return new Engine(new BigBenFace(this, metrics), metrics);
   }
 
