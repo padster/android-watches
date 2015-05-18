@@ -1,8 +1,8 @@
 package com.padsterprogramming.watches;
 
 import android.content.Context;
-import com.padsterprogramming.watches.SimpleWatchface;
-import com.padsterprogramming.watches.WatchMetrics;
+import com.padsterprogramming.watches.services.WatchContext;
+import com.padsterprogramming.watches.services.WatchMetrics;
 
 /**
  * Abstract simple watchface, contains some useful methods and
@@ -12,12 +12,10 @@ public abstract class BaseSimpleWatchface implements SimpleWatchface {
   // TODO - move elsewhere when there's a better spot.
   protected static final float TWOPI = 2 * (float) Math.PI;
 
-  protected final Context context;
-  protected final WatchMetrics metrics;
+  protected final WatchContext context;
 
-  protected BaseSimpleWatchface(Context context, WatchMetrics metrics) {
+  protected BaseSimpleWatchface(WatchContext context) {
     this.context = context;
-    this.metrics = metrics;
   }
 
   @Override public void createSingletons() {

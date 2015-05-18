@@ -1,22 +1,21 @@
 package com.padsterprogramming.watches.faces;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.format.Time;
 import com.padsterprogramming.watches.BasePaletteWatchface;
 import com.padsterprogramming.watches.Paints;
-import com.padsterprogramming.watches.WatchMetrics;
 import com.padsterprogramming.watches.faces.FibonacciPalettes.FibonacciPalette;
+import com.padsterprogramming.watches.services.WatchContext;
 
 /**
  * Watchface for the fibonacci clock:
  * https://www.kickstarter.com/projects/basbrun/fibonacci-clock-an-open-source-clock-for-nerds-wit
  */
 public class FibonacciFace extends BasePaletteWatchface<FibonacciPalette> {
-  public FibonacciFace(Context context, WatchMetrics metrics) {
-    super(context, metrics, new FibonacciPalettes());
+  public FibonacciFace(WatchContext context) {
+    super(context, new FibonacciPalettes());
   }
 
   @Override public int activeDrawPeriodMs() {
@@ -28,7 +27,7 @@ public class FibonacciFace extends BasePaletteWatchface<FibonacciPalette> {
     Rect realBounds = bounds;
 
     // TODO - split out into common library to find biggest rectangle (copied from WordClockFace).
-    if (metrics.isRound()) {
+    if (context.watchMetrics().isRound()) {
       // Cull to square inside the circle.
       double oneOnRootTwo = 1.0 / Math.sqrt(2.0);
       double size = Math.min(bounds.height(), bounds.width());

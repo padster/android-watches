@@ -11,31 +11,27 @@ import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
 
-import com.padsterprogramming.watches.faces.BigBenFace;
-import com.padsterprogramming.watches.faces.FibonacciFace;
-import com.padsterprogramming.watches.faces.MondaineFace;
-import com.padsterprogramming.watches.faces.WordClockFace;
+import com.padsterprogramming.watches.faces.*;
+import com.padsterprogramming.watches.services.WatchContext;
+import com.padsterprogramming.watches.services.WatchMetrics;
 
 /** Service that renders a simple watchface, managing the life cycle. */
 public class SimpleWatchfaceService extends CanvasWatchFaceService {
   private static final String TAG = "Simple Watchface";
 
   @Override public Engine onCreateEngine() {
-    // Put whatever face you want here...
-    WatchMetrics metrics = new WatchMetrics();
-
-    // TODO - replace constructor args with custom context that includes metrics and android context.
-    return new Engine(new BigBenFace(this, metrics), metrics);
+    WatchContext context = new WatchContext(this);
+    return new Engine(new BigBenFace(context), context);
   }
 
   // Wraps a simple watchface as an engine.
   private final class Engine extends CanvasWatchFaceService.Engine {
     private final SimpleWatchface face;
-    private final WatchMetrics metrics;
+    private final WatchContext context;
 
-    public Engine(SimpleWatchface face, WatchMetrics metrics) {
+    public Engine(SimpleWatchface face, WatchContext context) {
       this.face = face;
-      this.metrics = metrics;
+      this.context = context;
     }
 
     @Override public void onCreate(SurfaceHolder holder) {
@@ -80,7 +76,7 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
 
     @Override public void onDraw(Canvas canvas, Rect bounds) {
       super.onDraw(canvas, bounds);
-      metrics.handleBounds(bounds);
+      context.watchMetrics().handleBounds(bounds);
 
       Time currentTime = new Time();
       currentTime.setToNow();
@@ -96,7 +92,7 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
     }
 
     @Override public void onApplyWindowInsets(WindowInsets insets) {
-      metrics.handleWindowInsets(insets);
+      context.watchMetrics().handleWindowInsets(insets);
     }
 
     /** Forces a redraw to be scheduled with a given period. */

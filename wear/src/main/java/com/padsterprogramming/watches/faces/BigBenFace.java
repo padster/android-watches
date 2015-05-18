@@ -1,15 +1,14 @@
 package com.padsterprogramming.watches.faces;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.text.format.Time;
 import com.padsterprogramming.watches.BasePaletteWatchface;
-import com.padsterprogramming.watches.ImageLoader;
-import com.padsterprogramming.watches.WatchMetrics;
 import com.padsterprogramming.watches.faces.BigBenPalettes.BigBenPalette;
+import com.padsterprogramming.watches.services.ImageLoader;
+import com.padsterprogramming.watches.services.WatchContext;
 
 /** Watchface to emulate the clockface on the tower that holds Big Ben in London. */
 public class BigBenFace extends BasePaletteWatchface<BigBenPalette> {
@@ -18,21 +17,19 @@ public class BigBenFace extends BasePaletteWatchface<BigBenPalette> {
   private static final double MINS_CENTRE = 170.0 / 210.0; // Centre at pixel 170 of 210.
   private static final double HOUR_CENTRE = 85.0 / 118.0; // Centre at pixel  85 of 118.
 
-  private ImageLoader imageLoader;
-
-  public BigBenFace(Context context, WatchMetrics metrics) {
-    super(context, metrics, new BigBenPalettes());
+  public BigBenFace(WatchContext context) {
+    super(context, new BigBenPalettes());
   }
 
   @Override public void createSingletons() {
-    imageLoader = new ImageLoader(this.context);
-
     // Preload images on service startup, not on first draw.
-    ensureActivePalette().preload(imageLoader);
-    ensurePassivePalette().preload(imageLoader);
+    ensureActivePalette().preload(context.imageLoader());
+    ensurePassivePalette().preload(context.imageLoader());
   }
 
   protected void drawMode(Time currentTime, Canvas canvas, Rect bounds, BigBenPalette palette) {
+    ImageLoader imageLoader = context.imageLoader();
+
     Bitmap face = imageLoader.getBitmap(palette.faceResource, bounds.width(), bounds.height());
     canvas.drawBitmap(face, 0, 0, null);
 

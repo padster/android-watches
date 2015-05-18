@@ -1,4 +1,4 @@
-package com.padsterprogramming.watches;
+package com.padsterprogramming.watches.services;
 
 import android.graphics.Rect;
 import android.view.WindowInsets;

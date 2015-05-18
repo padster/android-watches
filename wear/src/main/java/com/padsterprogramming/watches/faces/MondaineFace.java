@@ -1,15 +1,12 @@
 package com.padsterprogramming.watches.faces;
 
-import android.content.Context;
-import com.padsterprogramming.watches.BasePaletteWatchface;
-import com.padsterprogramming.watches.BaseSimpleWatchface;
-import com.padsterprogramming.watches.WatchMetrics;
-import com.padsterprogramming.watches.faces.MondainePalettes.MondainePalette;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.format.Time;
+import com.padsterprogramming.watches.BasePaletteWatchface;
+import com.padsterprogramming.watches.faces.MondainePalettes.MondainePalette;
+import com.padsterprogramming.watches.services.WatchContext;
 
 /** Demo watchface which looks like the SBB (Swiss rail) Mondaine design. */
 public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
@@ -24,8 +21,8 @@ public class MondaineFace extends BasePaletteWatchface<MondainePalette> {
   private int lastSecond = -1;
   private int lastMillis = -1;
 
-  public MondaineFace(Context context, WatchMetrics metrics) {
-    super(context, metrics, new MondainePalettes());
+  public MondaineFace(WatchContext context) {
+    super(context, new MondainePalettes());
   }
 
   @Override public int activeDrawPeriodMs() {

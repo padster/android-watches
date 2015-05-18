@@ -7,8 +7,7 @@ public final class Paints {
   public static final Paint WHITE = Paints.fromGrey(255);
   public static final Paint BLACK = Paints.fromGrey(0);
 
-  private Paints() {
-  }
+  private Paints() { /* Only static access... */ }
 
   /** Build a paint from r/g/b colours. */
   public static Paint fromRgb(int r, int g, int b) {

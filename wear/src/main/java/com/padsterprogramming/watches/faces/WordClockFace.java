@@ -2,9 +2,9 @@ package com.padsterprogramming.watches.faces;
 
 import android.content.Context;
 import com.padsterprogramming.watches.BasePaletteWatchface;
-import com.padsterprogramming.watches.BaseSimpleWatchface;
 import com.padsterprogramming.watches.Paints;
-import com.padsterprogramming.watches.WatchMetrics;
+import com.padsterprogramming.watches.services.WatchContext;
+import com.padsterprogramming.watches.services.WatchMetrics;
 import com.padsterprogramming.watches.faces.WordClockPalettes.WorldClockPalette;
 
 import android.graphics.Canvas;
@@ -20,8 +20,8 @@ import android.text.format.Time;
  * IDEA: Avoid burnin with letters changing in row #1?
  */
 public class WordClockFace extends BasePaletteWatchface<WorldClockPalette> {
-  public WordClockFace(Context context, WatchMetrics metrics) {
-    super(context, metrics, new WordClockPalettes());
+  public WordClockFace(WatchContext context) {
+    super(context, new WordClockPalettes());
   }
 
   @Override public int activeDrawPeriodMs() {
@@ -33,7 +33,7 @@ public class WordClockFace extends BasePaletteWatchface<WorldClockPalette> {
     Rect realBounds = bounds;
 
     // TODO - verify this works on a round watch...
-    if (metrics.isRound()) {
+    if (context.watchMetrics().isRound()) {
       // Cull to square inside the circle.
       double oneOnRootTwo = 1.0 / Math.sqrt(2.0);
       double size = Math.min(bounds.height(), bounds.width());

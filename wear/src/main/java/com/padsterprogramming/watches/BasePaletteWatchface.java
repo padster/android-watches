@@ -1,9 +1,9 @@
 package com.padsterprogramming.watches;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.text.format.Time;
+import com.padsterprogramming.watches.services.WatchContext;
 
 /**
  * Optional Watchface utility that uses the same logic to draw both active and passive faces,
@@ -24,8 +24,8 @@ public abstract class BasePaletteWatchface<Palette> extends BaseSimpleWatchface 
     private Palette passivePalette;
 
     /** Build the face given the normal details, plus details how to build the palettes. */
-    protected BasePaletteWatchface(Context context, WatchMetrics metrics, Palettes<Palette> palettes) {
-        super(context, metrics);
+    protected BasePaletteWatchface(WatchContext context, Palettes<Palette> palettes) {
+        super(context);
         this.palettes = palettes;
     }
 

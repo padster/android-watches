@@ -1,7 +1,7 @@
 package com.padsterprogramming.watches.faces;
 
 import com.padsterprogramming.watches.BasePaletteWatchface.Palettes;
-import com.padsterprogramming.watches.ImageLoader;
+import com.padsterprogramming.watches.services.ImageLoader;
 import com.padsterprogramming.watches.R;
 
 /** Per-mode image resource bundles for the Big Ben watch. */
