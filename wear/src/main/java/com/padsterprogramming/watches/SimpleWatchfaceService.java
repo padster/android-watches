@@ -21,7 +21,7 @@ public class SimpleWatchfaceService extends CanvasWatchFaceService {
 
   @Override public Engine onCreateEngine() {
     WatchContext context = new WatchContext(this);
-    return new Engine(new BigBenFace(context), context);
+    return new Engine(new HalographFace(context), context);
   }
 
   // Wraps a simple watchface as an engine.
